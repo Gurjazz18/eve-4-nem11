@@ -1,7 +1,7 @@
 const express=require("express")
 const { UserModel } = require("../model/userSchems")
 const bcrypt = require('bcrypt');
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 const userRoute=express.Router()
  userRoute.get("/",async(req,res)=>{
@@ -36,7 +36,7 @@ userRoute.post("/login",async(req,res)=>{
         if(user.length>0){
             bcrypt.compare(password, user[0].password, (err, result)=> {
                 if(result){
-                    var token = jwt.sign({userID:user[0]._id}, 'kailash');
+                    let token = jwt.sign({userID:user[0]._id}, 'kailash');
                     res.send({"msg":"Login Succesfully","token":token})
                 }else{
                     res.send({"msg":"some thing went wrong"})
